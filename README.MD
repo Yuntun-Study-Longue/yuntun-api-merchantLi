@@ -2,5 +2,31 @@
 
   add into .env file
 
+  NODE_ENV=dev
+
+  SERVER_PREFIX=/webcore
   SERVER_HOST=localhost
   SERVER_PORT=3000
+
+  # REDIS
+  RD_HOST=
+  RD_PORT=
+  RD_PASSWD=
+
+  # MONGO
+  DB_HOST=
+  DB_PORT=
+  DB_NAME=
+  DB_USER=
+  DB_PASSWD=
+
+
+  # ALI
+  MAIN_ACCESS_KEY_ID=
+  MAIN_ACCESS_KEY_SECRET=
+  OSS_BUCKET_NAME=
+
+  APP_ID=
+  APP_SECRET=
+  MSG_TOKEN=
+  YUNTUN_PAY_SECRET=
