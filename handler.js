@@ -1,10 +1,9 @@
-const { Main, Bsrh } = require('./router');
+const { Bsrh } = require('./router');
 
 exports.register = function (server, options, next) {
   const prefix = options.prefix ? options.prefix : '';
 
   server.register([
-    { plugin: Main, routes: { prefix: `${prefix}/base` } },
     { plugin: Bsrh, routes: { prefix: `${prefix}/bsrh` } },
   ])
 };

@@ -1,22 +1,22 @@
 const {
-RD_HOST, RD_PORT,
-DB_HOST, DB_PORT, DB_NAME,
-ACCESS_KEY_ID, ACCESS_KEY_SECRET, OSS_BUCKET_NAME
+RD_HOST, RD_PORT, RD_PASSWD,
+DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWD,
+MAIN_ACCESS_KEY_ID, MAIN_ACCESS_KEY_SECRET, OSS_BUCKET_NAME
 } = process.env;
 const Redis = require('ioredis');
 const OSS= require('ali-oss');
 
 exports.register = function (server, options, next) {
     // 初始化 redis
-    const session = new Redis(RD_PORT, RD_HOST);
+    const session = new Redis(`redis://:${RD_PASSWD}@${RD_HOST}:${RD_PORT}/4`);
 
     // 初始化 mongo
-    const db = require('monk')(`${DB_HOST}:${DB_PORT}/${DB_NAME}`);
+    const db = require('monk')(`${DB_USER}:${DB_PASSWD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`);
 
     // 初始化 alioss
     const alioss = new OSS({
-        accessKeyId: ACCESS_KEY_ID,
-        accessKeySecret: ACCESS_KEY_SECRET,
+        accessKeyId: MAIN_ACCESS_KEY_ID,
+        accessKeySecret: MAIN_ACCESS_KEY_SECRET,
         internal: false,
         region: 'oss-cn-beijing',
         bucket: OSS_BUCKET_NAME,
