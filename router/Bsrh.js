@@ -9,7 +9,7 @@ function register (server, options, next) {
     session: server.plugins['global-static'].session,
     collections: server.plugins['global-static'].collections,
   });
-  Main = Object.assign( Main, {
+  Main = Object.assign( Main, server.methods, {
     getRandomRemark: (TIMESTAMP)=> {
         const EIN = ['A', 'L', 'C', 'H', 'S'];
         const ZWEI= ['T', 'S', 'H', 'E', 'R'];
@@ -22,36 +22,6 @@ function register (server, options, next) {
             return EIN[ix];
         }).join('');
         return `${PreName}${subfix}`
-    },
-    rmLocal: function(FILE_PATH) {
-        const { fs } = this.utils;
-        if ( fs.existsSync(FILE_PATH) ) fs.unlinkSync(FILE_PATH);
-    },
-    loadSourceByStream: async function(STREAM, FILE_NAME) {
-        const { tmpdir, path, fs } = this.utils;
-        const filepath = path.resolve(tmpdir(), FILE_NAME);
-        const fileStream = fs.createWriteStream(filepath);
-        STREAM.pipe(fileStream);
-        return new Promise( (resolve, reject)=> {
-            fileStream.on('finish', ()=> resolve(filepath) );
-        });
-    },
-    uploadFile: async function(localFile) {
-        const { Promise, tmpdir, path, crypto, util, co, alioss, md5 } = this.utils;
-        const timestamp = new Date().getTime();
-        const key = md5(localFile + timestamp);
-
-        return new Promise( (resolve, reject)=> {
-            co(function*(){
-                const result = yield alioss.put(key, localFile);
-                yield alioss.putACL(key, 'public-read');
-
-                if (result.url) {
-                    resolve({ code: 0, data: { ali_url: result.url } });
-                    process.nextTick( ()=> Main.rmLocal( localFile ) );
-                } else resolve({ code: -1, msg: '上传失败' });
-            })
-        });
     },
     contentFill:async function(type,arrList,rules_summary_list){
         //arrList是某次活动的所有客户
