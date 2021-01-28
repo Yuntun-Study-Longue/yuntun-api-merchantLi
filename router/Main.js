@@ -5,7 +5,7 @@ function register (server, options, next) {
     RD_EXPIRES: 7200,
     MP_WX_HOST: 'https://mp.weixin.qq.com',
     WX_HOST: 'https://api.weixin.qq.com',
-    utils: server.plugins['global-static'].utils,
+    utils: server.plugins['luna-methods'].utils,
     session: server.plugins['global-static'].session,
     collections: server.plugins['global-static'].collections,
   });

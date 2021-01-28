@@ -7,6 +7,7 @@ const Good = require('good');
 const HapiSwagger = require('hapi-swagger');
 const Susie = require('susie');
 const Nes = require('nes');
+const LunaMethods = require('luna-methods');
 
 const Path = require('path');
 const { Main } = require('./router');
@@ -35,6 +36,7 @@ const start = async () => {
   await server.register([
     { plugin: Inert },
     { plugin: Vision },
+    { plugin: LunaMethods },
     { plugin: Susie },
     { plugin: Nes },
     { plugin: laabr.plugin, options: {indent: 0 } },
