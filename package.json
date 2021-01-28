@@ -1,6 +1,6 @@
 {
   "name": "yuntun-api-merchantli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "handler.js",
   "scripts": {
